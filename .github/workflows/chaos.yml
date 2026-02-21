@@ -1,0 +1,64 @@
+name: chaos
+
+on:
+  schedule:
+    - cron: "0 5 * * 3"
+  workflow_dispatch:
+    inputs:
+      target_workflow:
+        description: "Workflow to chaos-test"
+        required: false
+        default: "all"
+
+jobs:
+  chaos-validation:
+    name: Chaos Engineering Validation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate State File Integrity
+        run: |
+          python -c "
+          import json, sys
+          try:
+              s = json.load(open('singularity/_STATE/state.json'))
+              assert 'current' in s and 'next' in s and 'version' in s
+              print('State file integrity OK')
+          except Exception as e:
+              print(f'CHAOS DETECTED: {e}')
+              sys.exit(1)
+          "
+
+      - name: Validate Evolution Index Integrity
+        run: |
+          python -c "
+          import json, sys
+          try:
+              idx = json.load(open('singularity/evolution/index.json'))
+              assert 'schema_version' in idx
+              print('Evolution index integrity OK')
+          except Exception as e:
+              print(f'CHAOS DETECTED: {e}')
+              sys.exit(1)
+          "
+
+      - name: Validate Roadmap Integrity
+        run: |
+          python -c "
+          import json, sys
+          try:
+              r = json.load(open('singularity/blueprint/roadmap.json'))
+              assert 'milestones' in r
+              print('Roadmap integrity OK')
+          except Exception as e:
+              print(f'CHAOS DETECTED: {e}')
+              sys.exit(1)
+          "

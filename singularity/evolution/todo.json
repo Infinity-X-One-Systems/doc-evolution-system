@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-02-21T00:00:00Z",
+  "tasks": [
+    {
+      "id": "TODO-001",
+      "priority": "critical",
+      "title": "Enable branch protection via API",
+      "description": "Apply branch-protection.json settings to the main branch using the GitHub API.",
+      "assigned_to": "admin",
+      "status": "pending"
+    },
+    {
+      "id": "TODO-002",
+      "priority": "high",
+      "title": "Configure ADMIN_PLANE_PAT secret",
+      "description": "Add the ADMIN_PLANE_PAT repository secret required by admin-sync.yml.",
+      "assigned_to": "admin",
+      "status": "pending"
+    },
+    {
+      "id": "TODO-003",
+      "priority": "high",
+      "title": "Deploy Pages dashboard",
+      "description": "Enable GitHub Pages on this repository pointing to the docs/ branch.",
+      "assigned_to": "admin",
+      "status": "pending"
+    },
+    {
+      "id": "TODO-004",
+      "priority": "medium",
+      "title": "Configure Google Workspace service account",
+      "description": "Set GOOGLE_SERVICE_ACCOUNT_JSON secret for google_workspace.py.",
+      "assigned_to": "admin",
+      "status": "pending"
+    },
+    {
+      "id": "TODO-005",
+      "priority": "medium",
+      "title": "Configure Vault endpoint",
+      "description": "Set VAULT_ADDR and VAULT_TOKEN secrets for vault_agent.py.",
+      "assigned_to": "admin",
+      "status": "pending"
+    },
+    {
+      "id": "TODO-006",
+      "priority": "low",
+      "title": "Set mesh hook endpoint",
+      "description": "Set MESH_HOOK_URL secret for mesh_hook.py.",
+      "assigned_to": "admin",
+      "status": "pending"
+    }
+  ]
+}

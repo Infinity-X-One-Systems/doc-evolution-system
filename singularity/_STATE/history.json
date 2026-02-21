@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "transitions": [
+    {
+      "from": "NEW_IDEA",
+      "to": "DISCOVERY_RUNNING",
+      "timestamp": "2026-02-21T01:13:46.353885Z"
+    },
+    {
+      "from": "NEW_IDEA",
+      "to": "DISCOVERY_RUNNING",
+      "timestamp": "2026-02-21T09:39:19.827124Z"
+    }
+  ]
+}
