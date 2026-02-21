@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Singularity Prime — Enterprise Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="sp-header">
+    <div class="sp-header__logo">
+      <span class="sp-logo-mark">✦</span>
+      <span class="sp-logo-text">Singularity Prime</span>
+    </div>
+    <div class="sp-header__meta">
+      <span id="sp-org" class="sp-badge sp-badge--org">Infinity-X-One-Systems</span>
+      <span id="sp-state-badge" class="sp-badge sp-badge--state">Loading…</span>
+      <span id="sp-version-badge" class="sp-badge sp-badge--version">v0.0.0</span>
+    </div>
+  </header>
+
+  <nav class="sp-nav">
+    <button class="sp-nav__tab sp-nav__tab--active" data-tab="overview">Overview</button>
+    <button class="sp-nav__tab" data-tab="roadmap">Roadmap</button>
+    <button class="sp-nav__tab" data-tab="validation">Validation Matrix</button>
+    <button class="sp-nav__tab" data-tab="checklist">Checklist</button>
+    <button class="sp-nav__tab" data-tab="tech">Tech Registry</button>
+    <button class="sp-nav__tab" data-tab="memory">Memory Ledger</button>
+    <button class="sp-nav__tab" data-tab="state">State Transitions</button>
+    <button class="sp-nav__tab" data-tab="admin">Admin Controls</button>
+  </nav>
+
+  <main class="sp-main">
+
+    <!-- OVERVIEW -->
+    <section id="tab-overview" class="sp-tab sp-tab--active">
+      <h2>System Overview</h2>
+      <div class="sp-cards" id="overview-cards">
+        <div class="sp-card">
+          <div class="sp-card__label">Current State</div>
+          <div class="sp-card__value" id="ov-state">—</div>
+        </div>
+        <div class="sp-card">
+          <div class="sp-card__label">Next State</div>
+          <div class="sp-card__value" id="ov-next">—</div>
+        </div>
+        <div class="sp-card">
+          <div class="sp-card__label">Version</div>
+          <div class="sp-card__value" id="ov-version">—</div>
+        </div>
+        <div class="sp-card">
+          <div class="sp-card__label">Overall Validation</div>
+          <div class="sp-card__value" id="ov-validation">—</div>
+        </div>
+        <div class="sp-card">
+          <div class="sp-card__label">Checklist Progress</div>
+          <div class="sp-card__value" id="ov-checklist">—</div>
+        </div>
+        <div class="sp-card">
+          <div class="sp-card__label">Technologies Detected</div>
+          <div class="sp-card__value" id="ov-tech">—</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROADMAP -->
+    <section id="tab-roadmap" class="sp-tab">
+      <h2>Roadmap</h2>
+      <div id="roadmap-container"></div>
+    </section>
+
+    <!-- VALIDATION MATRIX -->
+    <section id="tab-validation" class="sp-tab">
+      <h2>Validation Matrix</h2>
+      <table class="sp-table" id="validation-table">
+        <thead>
+          <tr>
+            <th>Check</th>
+            <th>Status</th>
+            <th>Last Run</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody id="validation-body"></tbody>
+      </table>
+      <p class="sp-timestamp">Generated: <span id="validation-ts">—</span></p>
+    </section>
+
+    <!-- CHECKLIST -->
+    <section id="tab-checklist" class="sp-tab">
+      <h2>Governance Checklist</h2>
+      <div id="checklist-container"></div>
+    </section>
+
+    <!-- TECH REGISTRY -->
+    <section id="tab-tech" class="sp-tab">
+      <h2>Technology Registry</h2>
+      <table class="sp-table" id="tech-table">
+        <thead>
+          <tr>
+            <th>Technology</th>
+            <th>Category</th>
+            <th>Detected Via</th>
+            <th>Files</th>
+          </tr>
+        </thead>
+        <tbody id="tech-body"></tbody>
+      </table>
+    </section>
+
+    <!-- MEMORY LEDGER -->
+    <section id="tab-memory" class="sp-tab">
+      <h2>Memory Ledger</h2>
+      <table class="sp-table" id="memory-table">
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>Event</th>
+            <th>Overall</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody id="memory-body"></tbody>
+      </table>
+    </section>
+
+    <!-- STATE TRANSITIONS -->
+    <section id="tab-state" class="sp-tab">
+      <h2>State Transition History</h2>
+      <div class="sp-state-diagram" id="state-diagram"></div>
+      <h3>Transition Log</h3>
+      <table class="sp-table" id="history-table">
+        <thead>
+          <tr>
+            <th>From</th>
+            <th>To</th>
+            <th>Timestamp</th>
+          </tr>
+        </thead>
+        <tbody id="history-body"></tbody>
+      </table>
+    </section>
+
+    <!-- ADMIN CONTROLS -->
+    <section id="tab-admin" class="sp-tab">
+      <h2>Admin Controls</h2>
+      <div class="sp-admin-grid">
+
+        <div class="sp-admin-card">
+          <h3>Add Milestone</h3>
+          <form id="form-add-milestone">
+            <label>Title <input type="text" id="ms-title" required placeholder="Milestone title" /></label>
+            <label>Target Date <input type="text" id="ms-date" placeholder="2026-Q3" /></label>
+            <label>Status
+              <select id="ms-status">
+                <option value="planned">Planned</option>
+                <option value="in_progress">In Progress</option>
+                <option value="completed">Completed</option>
+              </select>
+            </label>
+            <button type="submit" class="sp-btn sp-btn--primary">Add Milestone</button>
+          </form>
+        </div>
+
+        <div class="sp-admin-card">
+          <h3>Move State</h3>
+          <form id="form-move-state">
+            <label>New Current State
+              <select id="admin-current-state">
+                <option>NEW_IDEA</option>
+                <option>DISCOVERY_RUNNING</option>
+                <option>EVOLUTION_COMPLETE</option>
+                <option>BUILD_RUNNING</option>
+                <option>VALIDATION</option>
+                <option>APPROVAL</option>
+                <option>RELEASED</option>
+              </select>
+            </label>
+            <label>New Next State
+              <select id="admin-next-state">
+                <option value="">— (none)</option>
+                <option>DISCOVERY_RUNNING</option>
+                <option>EVOLUTION_COMPLETE</option>
+                <option>BUILD_RUNNING</option>
+                <option>VALIDATION</option>
+                <option>APPROVAL</option>
+                <option>RELEASED</option>
+              </select>
+            </label>
+            <button type="submit" class="sp-btn sp-btn--warning">Update State (local preview)</button>
+          </form>
+        </div>
+
+        <div class="sp-admin-card">
+          <h3>Trigger Actions</h3>
+          <button class="sp-btn sp-btn--primary" id="btn-rebuild" onclick="triggerAction('rebuild')">
+            🔄 Force Rebuild
+          </button>
+          <button class="sp-btn sp-btn--secondary" id="btn-revalidate" onclick="triggerAction('revalidate')">
+            ✔ Re-validate
+          </button>
+          <button class="sp-btn sp-btn--danger" id="btn-force-chaos" onclick="triggerAction('chaos')">
+            ⚡ Chaos Test
+          </button>
+          <div id="admin-action-result" class="sp-admin-result"></div>
+        </div>
+
+        <div class="sp-admin-card">
+          <h3>Edit Roadmap Entry</h3>
+          <form id="form-edit-milestone">
+            <label>Milestone ID <input type="text" id="edit-ms-id" placeholder="M1" /></label>
+            <label>New Status
+              <select id="edit-ms-status">
+                <option value="planned">Planned</option>
+                <option value="in_progress">In Progress</option>
+                <option value="completed">Completed</option>
+              </select>
+            </label>
+            <button type="submit" class="sp-btn sp-btn--secondary">Update Milestone</button>
+          </form>
+        </div>
+
+      </div>
+      <p class="sp-admin-note">
+        ⚠ Admin controls modify the local JSON state preview only.
+        Commit changes through a PR to apply them permanently.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="sp-footer">
+    <span>Singularity Prime — Infinity-X-One-Systems</span>
+    <span id="footer-ts"></span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

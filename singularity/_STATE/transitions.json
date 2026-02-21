@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "allowed": {
+    "NEW_IDEA": ["DISCOVERY_RUNNING"],
+    "DISCOVERY_RUNNING": ["EVOLUTION_COMPLETE"],
+    "EVOLUTION_COMPLETE": ["BUILD_RUNNING"],
+    "BUILD_RUNNING": ["VALIDATION"],
+    "VALIDATION": ["APPROVAL"],
+    "APPROVAL": ["RELEASED"]
+  }
+}

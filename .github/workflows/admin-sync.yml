@@ -1,0 +1,48 @@
+name: admin-sync
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  sync:
+    name: Admin Control Plane Sync
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Admin Project Registration
+        env:
+          GH_TOKEN: ${{ secrets.ADMIN_PLANE_PAT }}
+          ORG: Infinity-X-One-Systems
+          REPO: ${{ github.event.repository.name }}
+        run: python org-sync/admin_project_register.py
+
+      - name: Sync Memory Registry
+        run: |
+          python -c "
+          import json, datetime
+          try:
+              registry = json.load(open('singularity/evolution/memory_registry.json'))
+          except Exception:
+              registry = {'entries': []}
+          registry['entries'].append({
+              'event': 'admin-sync',
+              'timestamp': datetime.datetime.now(datetime.timezone.utc).isoformat().replace('+00:00', 'Z'),
+              'ref': '${{ github.sha }}'[:8],
+              'branch': '${{ github.ref_name }}'
+          })
+          json.dump(registry, open('singularity/evolution/memory_registry.json', 'w'), indent=2)
+          print('Memory registry updated')
+          "
