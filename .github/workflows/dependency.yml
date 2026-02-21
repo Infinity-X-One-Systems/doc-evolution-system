@@ -1,0 +1,41 @@
+name: dependency
+
+on:
+  pull_request:
+    branches: ["main"]
+  schedule:
+    - cron: "0 4 * * 1"
+
+jobs:
+  review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if Dependency Graph is enabled
+        id: dep-graph-check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$GH_REPO/dependency-graph/sbom")
+          if [ "$HTTP_STATUS" = "200" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Dependency Graph is not enabled for this repository. Skipping dependency review. Enable it at: https://github.com/$GH_REPO/settings/security_analysis"
+          fi
+
+      - name: Dependency Review
+        if: steps.dep-graph-check.outputs.enabled == 'true'
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: high
+          comment-summary-in-pr: always
