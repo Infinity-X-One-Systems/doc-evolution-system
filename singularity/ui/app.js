@@ -46,7 +46,9 @@ function statusBadge(status) {
     in_progress: '<span class="sp-badge sp-badge--warning">in progress</span>',
     planned: '<span class="sp-badge sp-badge--neutral">planned</span>',
   };
-  return map[status] || `<span class="sp-badge sp-badge--neutral">${status}</span>`;
+  // Fallback to a safe, known status to avoid reflecting arbitrary text into HTML.
+  const safeStatus = Object.prototype.hasOwnProperty.call(map, status) ? status : "unknown";
+  return map[safeStatus];
 }
 
 // ─── Tab navigation ─────────────────────────────────────────────────────────
