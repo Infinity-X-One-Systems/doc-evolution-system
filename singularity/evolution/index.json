@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-02-21T00:00:00Z",
+  "artefacts": {
+    "blueprint": [
+      "singularity/blueprint/master_invocation.md",
+      "singularity/blueprint/roadmap.json",
+      "singularity/blueprint/architecture.md"
+    ],
+    "evolution": [
+      "singularity/evolution/checklist.json",
+      "singularity/evolution/todo.json",
+      "singularity/evolution/tech_registry.json",
+      "singularity/evolution/sop_registry.json",
+      "singularity/evolution/memory_registry.json",
+      "singularity/evolution/validation_report.json"
+    ],
+    "agents": [
+      "singularity/agents/evolution_engine.py",
+      "singularity/agents/state_machine.py",
+      "singularity/agents/pat_validator.py",
+      "singularity/agents/doc_validator.py",
+      "singularity/agents/tech_detector.py",
+      "singularity/agents/github_sync.py",
+      "singularity/agents/google_workspace.py",
+      "singularity/agents/vault_agent.py",
+      "singularity/agents/mesh_hook.py"
+    ],
+    "state": [
+      "singularity/_STATE/state.json",
+      "singularity/_STATE/history.json",
+      "singularity/_STATE/transitions.json"
+    ],
+    "ui": [
+      "singularity/ui/index.html",
+      "singularity/ui/app.js",
+      "singularity/ui/styles.css"
+    ],
+    "workflows": [
+      ".github/workflows/pat.yml",
+      ".github/workflows/codeql.yml",
+      ".github/workflows/dependency.yml",
+      ".github/workflows/state-machine.yml",
+      ".github/workflows/docs.yml",
+      ".github/workflows/playwright.yml",
+      ".github/workflows/chaos.yml",
+      ".github/workflows/release.yml",
+      ".github/workflows/admin-sync.yml"
+    ],
+    "org_sync": [
+      "org-sync/admin_project_register.py"
+    ]
+  }
+}
