@@ -54,7 +54,7 @@ def read_secret(secret_name: str) -> dict | None:
             data = json.loads(resp.read())
             return data.get("data", {})
     except urllib.error.HTTPError as exc:
-        print(f"[vault_agent] Read error {exc.code} for {secret_name}", file=sys.stderr)
+        print(f"[vault_agent] Read error {exc.code} when accessing Vault secret.", file=sys.stderr)
         return None
 
 
