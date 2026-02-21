@@ -213,16 +213,39 @@ el("form-add-milestone").addEventListener("submit", e => {
   const status = el("ms-status").value;
   if (!title) return;
 
-  const roadmapEl = el("roadmap-container");
-  const id = `M${Date.now()}`;
-  roadmapEl.insertAdjacentHTML("beforeend", `
-    <div class="sp-milestone sp-milestone--${status}">
-      <div class="sp-milestone__header">
-        <span class="sp-milestone__id">${id}</span>
-        <span class="sp-milestone__title">${title}</span>
-        ${statusBadge(status)}
-        <span class="sp-milestone__date">${date}</span>
-      </div>
+
+  const milestoneEl = document.createElement("div");
+  milestoneEl.classList.add("sp-milestone", `sp-milestone--${status}`);
+
+  const headerEl = document.createElement("div");
+  headerEl.classList.add("sp-milestone__header");
+
+  const idSpan = document.createElement("span");
+  idSpan.classList.add("sp-milestone__id");
+  idSpan.textContent = id;
+  headerEl.appendChild(idSpan);
+
+  const titleSpan = document.createElement("span");
+  titleSpan.classList.add("sp-milestone__title");
+  titleSpan.textContent = title;
+  headerEl.appendChild(titleSpan);
+
+  const statusContainer = document.createElement("span");
+  statusContainer.innerHTML = statusBadge(status);
+  if (statusContainer.firstElementChild) {
+    headerEl.appendChild(statusContainer.firstElementChild);
+  } else {
+    headerEl.appendChild(statusContainer);
+  }
+
+  const dateSpan = document.createElement("span");
+  dateSpan.classList.add("sp-milestone__date");
+  dateSpan.textContent = date;
+  headerEl.appendChild(dateSpan);
+
+  milestoneEl.appendChild(headerEl);
+  roadmapEl.appendChild(milestoneEl);
+
     </div>
   `);
   el("ms-title").value = "";
