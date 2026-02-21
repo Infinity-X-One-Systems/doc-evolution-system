@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "transitions": [
+    {
+      "from": "NEW_IDEA",
+      "to": "DISCOVERY_RUNNING",
+      "timestamp": "2026-02-21T01:13:46.353885Z"
+    },
+    {
+      "from": "NEW_IDEA",
+      "to": "DISCOVERY_RUNNING",
+      "timestamp": "2026-02-21T01:14:08.865545Z"
+    },
+    {
+      "from": "NEW_IDEA",
+      "to": "DISCOVERY_RUNNING",
+      "timestamp": "2026-02-21T01:14:23.996841Z"
+    },
+    {
+      "from": "NEW_IDEA",
+      "to": "DISCOVERY_RUNNING",
+      "timestamp": "2026-02-21T06:30:09.503714Z"
+    },
+    {
+      "from": "NEW_IDEA",
+      "to": "DISCOVERY_RUNNING",
+      "timestamp": "2026-02-21T06:33:50.613644Z"
+    },
+    {
+      "from": "NEW_IDEA",
+      "to": "DISCOVERY_RUNNING",
+      "timestamp": "2026-02-21T06:36:13.881037Z"
+    }
+  ]
+}

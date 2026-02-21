@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-02-21T00:00:00Z",
+  "items": [
+    {
+      "id": "CHK-001",
+      "category": "governance",
+      "title": "Branch protection enabled",
+      "completed": false,
+      "required": true
+    },
+    {
+      "id": "CHK-002",
+      "category": "governance",
+      "title": "CODEOWNERS configured",
+      "completed": true,
+      "required": true
+    },
+    {
+      "id": "CHK-003",
+      "category": "security",
+      "title": "CodeQL workflow active",
+      "completed": true,
+      "required": true
+    },
+    {
+      "id": "CHK-004",
+      "category": "security",
+      "title": "Dependency review workflow active",
+      "completed": true,
+      "required": true
+    },
+    {
+      "id": "CHK-005",
+      "category": "pat",
+      "title": "PAT validator workflow active",
+      "completed": true,
+      "required": true
+    },
+    {
+      "id": "CHK-006",
+      "category": "state",
+      "title": "State machine workflow active",
+      "completed": true,
+      "required": true
+    },
+    {
+      "id": "CHK-007",
+      "category": "docs",
+      "title": "Doc validator workflow active",
+      "completed": true,
+      "required": true
+    },
+    {
+      "id": "CHK-008",
+      "category": "ui",
+      "title": "Playwright workflow active",
+      "completed": true,
+      "required": true
+    },
+    {
+      "id": "CHK-009",
+      "category": "integration",
+      "title": "Admin sync workflow active",
+      "completed": true,
+      "required": true
+    },
+    {
+      "id": "CHK-010",
+      "category": "integration",
+      "title": "Google Workspace connector configured",
+      "completed": false,
+      "required": false
+    },
+    {
+      "id": "CHK-011",
+      "category": "integration",
+      "title": "Vault agent configured",
+      "completed": false,
+      "required": false
+    },
+    {
+      "id": "CHK-012",
+      "category": "integration",
+      "title": "Mesh hook endpoint set",
+      "completed": false,
+      "required": false
+    },
+    {
+      "id": "CHK-013",
+      "category": "pages",
+      "title": "GitHub Pages dashboard deployed",
+      "completed": false,
+      "required": true
+    }
+  ]
+}
