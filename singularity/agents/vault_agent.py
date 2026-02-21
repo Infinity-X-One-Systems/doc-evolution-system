@@ -94,7 +94,7 @@ def sync_release_to_vault() -> None:
     payload = {
         "current_state": state.get("current"),
         "version": state.get("version", "0.0.0"),
-        "synced_at": datetime.datetime.now(datetime.timezone.utc).isoformat() + "Z",
+        "synced_at": datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z"),
     }
     write_secret("release/latest", payload)
 

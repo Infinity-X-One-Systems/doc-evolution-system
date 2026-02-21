@@ -37,6 +37,15 @@ async function fetchJSON(path) {
 
 function el(id) { return document.getElementById(id); }
 
+function esc(str) {
+  return String(str ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function statusBadge(status) {
   const map = {
     pass: '<span class="sp-badge sp-badge--pass">✓ pass</span>',
@@ -88,15 +97,15 @@ function renderRoadmap(roadmap) {
   if (!roadmap?.milestones) { container.textContent = "No roadmap data."; return; }
 
   container.innerHTML = roadmap.milestones.map(m => `
-    <div class="sp-milestone sp-milestone--${m.status}">
+    <div class="sp-milestone sp-milestone--${esc(m.status)}">
       <div class="sp-milestone__header">
-        <span class="sp-milestone__id">${m.id}</span>
-        <span class="sp-milestone__title">${m.title}</span>
+        <span class="sp-milestone__id">${esc(m.id)}</span>
+        <span class="sp-milestone__title">${esc(m.title)}</span>
         ${statusBadge(m.status)}
-        <span class="sp-milestone__date">${m.target_date ?? ""}</span>
+        <span class="sp-milestone__date">${esc(m.target_date ?? "")}</span>
       </div>
       <ul class="sp-milestone__deliverables">
-        ${(m.deliverables ?? []).map(d => `<li>${d}</li>`).join("")}
+        ${(m.deliverables ?? []).map(d => `<li>${esc(d)}</li>`).join("")}
       </ul>
     </div>
   `).join("");
@@ -108,10 +117,10 @@ function renderValidation(report) {
 
   tbody.innerHTML = Object.entries(report.checks).map(([name, v]) => `
     <tr>
-      <td><code>${name}</code></td>
+      <td><code>${esc(name)}</code></td>
       <td>${statusBadge(v.status ?? "unknown")}</td>
       <td>${v.last_run ? new Date(v.last_run).toLocaleString() : "—"}</td>
-      <td>${v.result ?? "—"}</td>
+      <td>${esc(v.result ?? "—")}</td>
     </tr>
   `).join("");
 
@@ -130,11 +139,11 @@ function renderChecklist(checklist) {
 
   container.innerHTML = Object.entries(byCategory).map(([cat, items]) => `
     <div class="sp-checklist-group">
-      <h3 class="sp-checklist-group__title">${cat}</h3>
+      <h3 class="sp-checklist-group__title">${esc(cat)}</h3>
       ${items.map(item => `
         <label class="sp-checklist-item ${item.completed ? "sp-checklist-item--done" : ""}">
           <input type="checkbox" ${item.completed ? "checked" : ""} disabled />
-          <span>${item.title}</span>
+          <span>${esc(item.title)}</span>
           ${item.required ? '<span class="sp-badge sp-badge--required">required</span>' : ""}
         </label>
       `).join("")}
@@ -150,10 +159,10 @@ function renderTech(tech) {
   }
   tbody.innerHTML = tech.technologies.map(t => `
     <tr>
-      <td><strong>${t.name}</strong></td>
-      <td>${t.category}</td>
-      <td><code>${t.detected_via}</code></td>
-      <td>${t.file_count}</td>
+      <td><strong>${esc(t.name)}</strong></td>
+      <td>${esc(t.category)}</td>
+      <td><code>${esc(t.detected_via)}</code></td>
+      <td>${esc(t.file_count)}</td>
     </tr>
   `).join("");
 }
@@ -167,9 +176,9 @@ function renderMemory(memory) {
   tbody.innerHTML = [...memory.entries].reverse().map(e => `
     <tr>
       <td>${e.timestamp ? new Date(e.timestamp).toLocaleString() : "—"}</td>
-      <td>${e.event ?? "—"}</td>
+      <td>${esc(e.event ?? "—")}</td>
       <td>${statusBadge(e.overall ?? "unknown")}</td>
-      <td><code>${JSON.stringify(e.checks ?? {})}</code></td>
+      <td><code>${esc(JSON.stringify(e.checks ?? {}))}</code></td>
     </tr>
   `).join("");
 }
@@ -181,8 +190,8 @@ function renderStateHistory(history, transitions) {
   } else {
     tbody.innerHTML = [...history.transitions].reverse().map(t => `
       <tr>
-        <td><code>${t.from}</code></td>
-        <td><code>${t.to}</code></td>
+        <td><code>${esc(t.from)}</code></td>
+        <td><code>${esc(t.to)}</code></td>
         <td>${t.timestamp ? new Date(t.timestamp).toLocaleString() : "—"}</td>
       </tr>
     `).join("");
@@ -193,9 +202,9 @@ function renderStateHistory(history, transitions) {
   if (transitions?.allowed) {
     diagram.innerHTML = Object.entries(transitions.allowed).map(([from, tos]) =>
       `<div class="sp-state-node">
-        <span class="sp-state-label">${from}</span>
+        <span class="sp-state-label">${esc(from)}</span>
         <span class="sp-state-arrow">→</span>
-        <span class="sp-state-label sp-state-label--next">${tos.join(", ")}</span>
+        <span class="sp-state-label sp-state-label--next">${esc(tos.join(", "))}</span>
       </div>`
     ).join("");
   }
@@ -213,6 +222,7 @@ el("form-add-milestone").addEventListener("submit", e => {
   const status = el("ms-status").value;
   if (!title) return;
 
+  const id = "MS-" + Date.now();
 
   const milestoneEl = document.createElement("div");
   milestoneEl.classList.add("sp-milestone", `sp-milestone--${status}`);
@@ -244,10 +254,8 @@ el("form-add-milestone").addEventListener("submit", e => {
   headerEl.appendChild(dateSpan);
 
   milestoneEl.appendChild(headerEl);
-  roadmapEl.appendChild(milestoneEl);
+  el("roadmap-container").appendChild(milestoneEl);
 
-    </div>
-  `);
   el("ms-title").value = "";
   showAdminResult("Milestone added to local preview. Commit roadmap.json to persist.");
 });

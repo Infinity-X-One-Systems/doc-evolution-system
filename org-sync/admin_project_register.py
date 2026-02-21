@@ -267,10 +267,10 @@ def update_admin_registry(
             "name": repo,
             "org": org,
             "project_id": project_id,
-            "registered_at": datetime.datetime.now(datetime.timezone.utc).isoformat() + "Z",
+            "registered_at": datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z"),
         }
     )
-    registry["updated_at"] = datetime.datetime.now(datetime.timezone.utc).isoformat() + "Z"
+    registry["updated_at"] = datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
 
     new_content = base64.b64encode(
         json.dumps(registry, indent=2).encode()

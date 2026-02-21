@@ -151,7 +151,7 @@ def main() -> None:
     recipient = os.environ.get("NOTIFY_EMAIL", "")
     spreadsheet_id = os.environ.get("GOOGLE_SHEET_ID", "")
 
-    now = datetime.datetime.now(datetime.timezone.utc).isoformat() + "Z"
+    now = datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
 
     if event == "deployment" and recipient:
         send_gmail_notification(

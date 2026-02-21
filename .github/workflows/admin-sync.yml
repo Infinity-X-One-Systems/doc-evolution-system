@@ -30,9 +30,12 @@ jobs:
         run: python org-sync/admin_project_register.py
 
       - name: Sync Memory Registry
+        env:
+          GIT_SHA: ${{ github.sha }}
+          GIT_BRANCH: ${{ github.ref_name }}
         run: |
           python -c "
-          import json, datetime
+          import json, datetime, os
           try:
               registry = json.load(open('singularity/evolution/memory_registry.json'))
           except Exception:
@@ -40,8 +43,8 @@ jobs:
           registry['entries'].append({
               'event': 'admin-sync',
               'timestamp': datetime.datetime.now(datetime.timezone.utc).isoformat().replace('+00:00', 'Z'),
-              'ref': '${{ github.sha }}'[:8],
-              'branch': '${{ github.ref_name }}'
+              'ref': os.environ['GIT_SHA'][:8],
+              'branch': os.environ['GIT_BRANCH']
           })
           json.dump(registry, open('singularity/evolution/memory_registry.json', 'w'), indent=2)
           print('Memory registry updated')

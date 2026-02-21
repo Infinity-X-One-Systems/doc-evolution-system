@@ -47,7 +47,7 @@ def _build_event(state: dict, validation: dict) -> dict:
         "current_state": state.get("current"),
         "next_state": state.get("next", ""),
         "validation_matrix": matrix,
-        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat() + "Z",
+        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z"),
     }
 
 

@@ -72,7 +72,7 @@ def main() -> None:
     technologies = detect()
     registry = {
         "schema_version": "1.0.0",
-        "updated_at": datetime.datetime.now(datetime.timezone.utc).isoformat() + "Z",
+        "updated_at": datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z"),
         "technologies": technologies,
     }
     Path(REGISTRY_PATH).write_text(json.dumps(registry, indent=2), encoding="utf-8")

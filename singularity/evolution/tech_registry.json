@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "updated_at": "2026-02-21T06:30:09.647546+00:00Z",
+  "updated_at": "2026-02-21T06:36:14.215360Z",
   "technologies": [
     {
       "name": "Python",
@@ -12,13 +12,19 @@
       "name": "JavaScript",
       "category": "language",
       "detected_via": "*.js",
-      "file_count": 1
+      "file_count": 3
     },
     {
       "name": "GitHub Actions",
       "category": "ci_cd",
       "detected_via": ".github/workflows/*.yml",
       "file_count": 9
+    },
+    {
+      "name": "Node.js",
+      "category": "runtime",
+      "detected_via": "package.json",
+      "file_count": 1
     },
     {
       "name": "PowerShell",

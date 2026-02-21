@@ -37,7 +37,7 @@ def run_check(name: str, command: list[str]) -> bool:
 
 
 def update_validation_report(results: dict[str, bool]) -> None:
-    now = datetime.datetime.now(datetime.timezone.utc).isoformat() + "Z"
+    now = datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
     report = {
         "schema_version": "1.0.0",
         "generated_at": now,
@@ -65,12 +65,12 @@ def update_memory_registry(results: dict[str, bool]) -> None:
     registry["entries"].append(
         {
             "event": "evolution_engine_run",
-            "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat() + "Z",
+            "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z"),
             "overall": "pass" if all(results.values()) else "fail",
             "checks": {k: ("pass" if v else "fail") for k, v in results.items()},
         }
     )
-    registry["updated_at"] = datetime.datetime.now(datetime.timezone.utc).isoformat() + "Z"
+    registry["updated_at"] = datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
     registry_path.write_text(json.dumps(registry, indent=2), encoding="utf-8")
     print(f"[evolution_engine] Memory registry updated: {MEMORY_REGISTRY}")
 

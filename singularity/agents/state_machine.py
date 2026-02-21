@@ -78,7 +78,7 @@ def main() -> None:
         {
             "from": current,
             "to": next_state,
-            "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat() + "Z",
+            "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z"),
         }
     )
     save_json(HISTORY_FILE, history)
