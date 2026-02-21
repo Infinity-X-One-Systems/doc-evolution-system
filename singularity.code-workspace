@@ -1,0 +1,70 @@
+{
+  "folders": [
+    {
+      "name": "Singularity Prime — Root",
+      "path": "."
+    },
+    {
+      "name": "Agents",
+      "path": "singularity/agents"
+    },
+    {
+      "name": "Blueprint",
+      "path": "singularity/blueprint"
+    },
+    {
+      "name": "Evolution Data",
+      "path": "singularity/evolution"
+    },
+    {
+      "name": "State",
+      "path": "singularity/_STATE"
+    },
+    {
+      "name": "UI Dashboard",
+      "path": "singularity/ui"
+    },
+    {
+      "name": "Org Sync",
+      "path": "org-sync"
+    }
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "files.autoSave": "afterDelay"
+  },
+  "extensions": {
+    "recommendations": [
+      "github.copilot",
+      "github.copilot-chat",
+      "ms-python.python",
+      "esbenp.prettier-vscode"
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Run Evolution Engine",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}/singularity/agents/evolution_engine.py",
+        "cwd": "${workspaceFolder}"
+      },
+      {
+        "name": "Run State Machine",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}/singularity/agents/state_machine.py",
+        "cwd": "${workspaceFolder}"
+      },
+      {
+        "name": "Run PAT Validator",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder}/singularity/agents/pat_validator.py",
+        "cwd": "${workspaceFolder}"
+      }
+    ]
+  }
+}

@@ -1,0 +1,50 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Advance state to RELEASED
+        run: |
+          python -c "
+          import json
+          state = json.load(open('singularity/_STATE/state.json'))
+          state['current'] = 'RELEASED'
+          state['next'] = ''
+          state['version'] = '${{ github.ref_name }}'
+          json.dump(state, open('singularity/_STATE/state.json', 'w'), indent=2)
+          print('State advanced to RELEASED')
+          "
+
+      - name: Commit state update
+        run: |
+          git config user.name "Singularity Prime"
+          git config user.email "singularity@infinity-x-one.systems"
+          git add singularity/_STATE/state.json
+          git commit -m "chore: advance state to RELEASED for ${{ github.ref_name }}" || true
+          git push origin HEAD:main || true
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            singularity/_STATE/state.json
+            singularity/blueprint/roadmap.json

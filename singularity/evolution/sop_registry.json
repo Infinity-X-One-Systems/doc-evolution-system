@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-02-21T00:00:00Z",
+  "sops": [
+    {
+      "id": "SOP-001",
+      "title": "New Repository Bootstrap",
+      "description": "Steps to create a new repository from infinity-templates and apply branch protection.",
+      "steps": [
+        "Run bootstrap-singularity-enterprise.ps1",
+        "Set required secrets: ADMIN_PLANE_PAT, GOOGLE_SERVICE_ACCOUNT_JSON, VAULT_ADDR, VAULT_TOKEN, MESH_HOOK_URL",
+        "Enable GitHub Pages",
+        "Apply branch-protection.json via API",
+        "Verify all workflows pass on first PR"
+      ],
+      "owner": "admin",
+      "last_reviewed": "2026-02-21"
+    },
+    {
+      "id": "SOP-002",
+      "title": "State Advancement",
+      "description": "How to manually advance repository state when automation cannot.",
+      "steps": [
+        "Edit singularity/_STATE/state.json with the new 'next' value",
+        "Open a PR — state-machine workflow will validate the transition",
+        "Merge after approval"
+      ],
+      "owner": "admin",
+      "last_reviewed": "2026-02-21"
+    },
+    {
+      "id": "SOP-003",
+      "title": "Emergency Hotfix",
+      "description": "Process for applying an emergency hotfix bypassing normal flow.",
+      "steps": [
+        "Create hotfix branch from main",
+        "Apply fix",
+        "Open PR with label 'hotfix'",
+        "Obtain admin approval",
+        "Merge — admin-sync and release workflows handle the rest"
+      ],
+      "owner": "admin",
+      "last_reviewed": "2026-02-21"
+    }
+  ]
+}

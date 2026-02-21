@@ -1,0 +1,20 @@
+# CODEOWNERS — Singularity Prime Org Fabric
+# All paths require review from the Infinity-X-One-Systems org owners.
+
+# Global ownership
+*                           @Infinity-X-One-Systems/owners
+
+# Singularity core agents — require security review
+singularity/agents/         @Infinity-X-One-Systems/owners @Infinity-X-One-Systems/security
+
+# State files — require at least one owner approval
+singularity/_STATE/         @Infinity-X-One-Systems/owners
+
+# Governance workflows
+.github/workflows/          @Infinity-X-One-Systems/owners @Infinity-X-One-Systems/security
+
+# Org-sync admin plane scripts
+org-sync/                   @Infinity-X-One-Systems/owners
+
+# Blueprint and roadmap
+singularity/blueprint/      @Infinity-X-One-Systems/owners
