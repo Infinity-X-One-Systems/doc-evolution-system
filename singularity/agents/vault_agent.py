@@ -76,7 +76,7 @@ def write_secret(secret_name: str, payload: dict) -> bool:
     )
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:  # noqa: S310
-            print(f"[vault_agent] Secret written: {secret_name} (HTTP {resp.status})")
+            print(f"[vault_agent] Secret write succeeded (HTTP {resp.status})")
             return True
     except urllib.error.HTTPError as exc:
         print(f"[vault_agent] Write error {exc.code} for {secret_name}", file=sys.stderr)
