@@ -108,7 +108,7 @@ def main() -> None:
         if secret_name:
             data = read_secret(secret_name)
             if data:
-                print(f"[vault_agent] Secret '{secret_name}' read successfully with {len(data)} field(s).")
+                print(f"[vault_agent] Secret read successfully with {len(data)} field(s).")
     else:
         print(f"[vault_agent] Unknown action: {action}", file=sys.stderr)
         sys.exit(1)
